@@ -1,0 +1,85 @@
+.content {
+    padding: 30px;
+}
+
+.addbtn {
+    background-color: #ff9b44;
+    border: 1px solid #ff9b44;
+    border-radius: 50px;
+    color: #fff;
+    float: right;
+    font-weight: 500;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-header {
+    border: 0;
+    justify-content: center;
+    padding: 30px 30px 0;
+}
+
+.profile-widget {
+    background-color: #fff;
+    border: 1px solid #ededed;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 1px 1px #0003;
+    overflow: hidden;
+}
+
+.profile-img {
+    cursor: pointer;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+    width: 80px;
+}
+
+.dropdown.profile-action {
+    position: absolute;
+    right: 5px;
+    text-align: right;
+    top: 10px;
+}
+
+.avatar>img {
+    border-radius: 50%;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    right: 0;
+    border: 1px solid #ededed;
+    box-shadow: 0 1px 1px #0003;
+    margin-bottom: 30px;
+    top: 0;
+    transform: translate3d(0px, 34px, 0px);
+    text-align: left;
+
+    a {
+        text-decoration: none;
+        text-transform: none;
+        color: #333;
+    }
+
+    li {
+        padding: 5px;
+        margin: 5px;
+    }
+
+    i {
+        margin: 0 5px;
+    }
+}

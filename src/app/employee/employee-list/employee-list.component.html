@@ -1,0 +1,389 @@
+<div class="content container-fluid">
+    <div class="page-header d-flex justify-content-between">
+        <div class="page-title">
+            <h3>Employees</h3>
+        </div>
+        <div class="add-employee">
+            <button (click)="onAdd()" class="btn addbtn" data-bs-toggle="modal" data-bs-target="#employeeModal"><i
+                    class="fa fa-plus"></i>
+                Add Employee</button>
+        </div>
+    </div>
+</div>
+<!-- Filter rows starts -->
+
+<div class="row filter-row">
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus"><input placeholder="Employee ID" type="text" class="form-control floating">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus"><input placeholder="Employee Name" type="text" class="form-control floating">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus select-focus">
+            <select class="form-select form-control">
+                <option>Select Designation</option>
+                <option>Web Developer</option>
+                <option>Web Designer</option>
+                <option>Android Developer</option>
+                <option>Ios Developer</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3"><a class="btn btn-success w-100"> Search
+        </a></div>
+</div>
+
+<!-- Filter row ends -->
+
+<!-- Employee Card list starts -->
+
+<div class="row mt-3">
+    <ng-container *ngFor="let row of employeeList">
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a (click)="seeDetails(row.Id)" class="avatar">
+                        <img [src]="row.ProfileImageUrl" style="width: 80px;height:80px;border-radius:50%" alt="">
+                    </a>
+                </div>
+                <div class="dropdown profile-action">
+                    <div class="dropdown">
+                        <button (click)="onEditEmployee(row)" data-bs-toggle="modal" data-bs-target="#employeeModal"
+                            class="btn" type="button"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            <span class="caret"></span></button>
+                        <button (click)="removeEmployee(row.Id)" class="btn" type="button"><i class="fa fa-trash-o"
+                                aria-hidden="true"></i>
+                            <span class="caret"></span></button>
+                    </div>
+                </div>
+                <h4><a class="mt-2"
+                        style="color: #333;text-decoration: none;font-size: 1.2rem;font-weight: 600;cursor:pointer">{{row.FirstName}}
+                        {{row.LastName}}</a></h4>
+                <div style="font-size: 0.9rem;font-weight: 600;" class="small text-muted">{{row.Designation}}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- Employee Card list ends -->
+
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="employeeModalLabel">Add Employee</h5>
+                <button type="button" id="close-emp" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="empForm">
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            <img class="img-fluid img-thumbnail" [src]="imgUrl"
+                                style="width: 120px;height:120px;border-radius:50%" alt=""><br>
+                            <div class="form-group">
+                                <label for="file-input">
+                                    <i class="fa fa-pencil"></i>
+                                </label>
+                            </div>
+                        </div>
+                        <input (change)="loadProfileImage($event)" style="display: none;" id="file-input" type="file"
+                            accept="image/*" />
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="FirstName" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="LastName" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Address <span class="text-danger">*</span></label>
+
+                                <textarea formControlName="Address" class="form-control" cols="30" rows="2"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Mobile" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Department <span class="text-danger">*</span></label>
+                                <select formControlName="DepartmentId" class="form-select"
+                                    aria-label="Default select example">
+                                    <option selected value="">Select Department</option>
+                                    <ng-container *ngFor="let dept of departmentList">
+                                        <option [ngValue]="dept.DeptId">{{dept.DeptName}}</option>
+                                    </ng-container>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Designation <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Designation" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Email" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Password<span class="text-danger">*</span></label>
+                                <input type="password" formControlName="Password" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Role <span class="text-danger">*</span></label>
+                                <select formControlName="RoleId" class="form-select"
+                                    aria-label="Default select example">
+                                    <option selected value="">Select Role</option>
+                                    <ng-container *ngFor="let role of roleList">
+                                        <option [ngValue]="role.RoleId">{{role.RoleName}}</option>
+                                    </ng-container>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Start Date <span class="text-danger">*</span></label>
+                                <input formControlName="StartDate" type="date" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close-emp" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="!isEdit" type="button" (click)="addEmployee()" class="btn btn-primary">Save
+                    changes</button>
+                <button *ngIf="isEdit" (click)="updateEmployee()" type="button" class="btn btn-primary">Update
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--  -->
+<!--  -->
+
+
+
+
+<!-- 
+
+<div class="content container-fluid">
+    <div class="page-header d-flex justify-content-between">
+        <div class="page-title">
+            <h3>Employees</h3>
+        </div>
+        <div class="add-employee">
+            <button class="btn addbtn" data-bs-toggle="modal" data-bs-target="#employeeModal"><i class="fa fa-plus"></i>
+                Add Employee</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="row filter-row">
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus"><input placeholder="Employee ID" type="text" class="form-control floating">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus"><input placeholder="Employee Name" type="text" class="form-control floating">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus select-focus"><select class="form-select form-control">
+                <option>Select Designation</option>
+                <option>Web Developer</option>
+                <option>Web Designer</option>
+                <option>Android Developer</option>
+                <option>Ios Developer</option>
+            </select></div>
+    </div>
+    <div class="col-sm-6 col-md-3"><a class="btn btn-success w-100"> Search
+        </a></div>
+</div>
+
+
+
+<div class="row mt-3">
+    <ng-container *ngFor="let row of employeeList">
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a (click)="seeDetails(row.Id)" class="avatar">
+                        <img [src]="row.ProfileImageUrl | mapimage" style="width: 80px;height:80px;border-radius:50%"
+                            alt="">
+                    </a>
+                </div>
+                <div class="dropdown profile-action">
+                    <div class="dropdown">
+                        <button (click)="onEditEmployee(row)" data-bs-toggle="modal" data-bs-target="#employeeModal"
+                            class="btn" type="button"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            <span class="caret"></span></button>
+                        <button (click)="removeEmployee(row.Id)" class="btn" type="button"><i class="fa fa-trash-o"
+                                aria-hidden="true"></i>
+                            <span class="caret"></span></button>
+                    </div>
+                </div>
+                <h4><a (click)="seeDetails(row.Id)" class="mt-2"
+                        style="color: #333;text-decoration: none;font-size: 1.2rem;font-weight: 600;cursor:pointer">{{row.FirstName}}
+                        {{row.LastName}}</a></h4>
+                <div style="font-size: 0.9rem;font-weight: 600;" class="small text-muted">{{row.Designation}}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="employeeModalLabel">Add Employee</h5>
+                <button type="button" (click)="openAddModal()" id="close-emp" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="employeeForm">
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            <img class="img-fluid img-thumbnail" style="width: 120px;height:120px;border-radius:50%"
+                                [src]="imgUrl" alt=""><br>
+                            <div class="form-group">
+                                <label for="file-input">
+                                    <i class="fa fa-pencil"></i>
+                                </label>
+                            </div>
+                        </div>
+                        <input (change)="loadProfileImage($event)" style="display: none;" id="file-input" type="file"
+                            accept="image/*" />
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="FirstName" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="LastName" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Address <span class="text-danger">*</span></label>
+
+                                <textarea formControlName="Address" class="form-control" cols="30" rows="2"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Mobile" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Department <span class="text-danger">*</span></label>
+                                <select formControlName="DepartmentId" class="form-select"
+                                    aria-label="Default select example">
+                                    <option selected value="">Select Department</option>
+                                    <ng-container *ngFor="let dept of deptList">
+                                        <option [ngValue]="dept.DeptId">{{dept.DeptName}}</option>
+                                    </ng-container>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Designation <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Designation" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                <input type="text" formControlName="Email" class="form-control">
+
+                            </div>
+                        </div>
+                        <div *ngIf="!isEdit" class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Password<span class="text-danger">*</span></label>
+                                <input type="password" formControlName="Password" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Role <span class="text-danger">*</span></label>
+                                <select formControlName="RoleId" class="form-select"
+                                    aria-label="Default select example">
+                                    <option selected value="">Select Role</option>
+                                    <ng-container *ngFor="let role of roleList">
+                                        <option [ngValue]="role.RoleId">{{role.RoleName}}</option>
+                                    </ng-container>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Start Date <span class="text-danger">*</span></label>
+                                <input formControlName="StartDate" type="date" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="!isEdit" type="button" class="btn btn-current" (click)="addEmployee()">Save
+                    changes</button>
+                <button *ngIf="isEdit" type="button" class="btn btn-current" (click)="updateEmployee()">Update
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+-->

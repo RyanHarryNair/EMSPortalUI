@@ -1,0 +1,65 @@
+<!-- <router-outlet></router-outlet> -->
+<div class="d-flex" id="wrapper">
+    <div class="bg-light border-right sidebar" id="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
+        <div class="sidebar-heading">EMS Portal </div>
+        <div class="list-group list-group-flush">
+            <button *ngIf="currentRoleId === '4'" class="btn text-light sidebar-nav" routerLinkActive="btn-active"
+                routerLink="admin-dashboard">Dashboard</button>
+            <button *ngIf="currentRoleId === '4'" class="btn text-light sidebar-nav" routerLinkActive="btn-active" routerLink="employee-list">All
+                Employees</button>
+            <button *ngIf="currentRoleId === '4'" class="btn text-light sidebar-nav" routerLinkActive="btn-active"
+                routerLink="departments">Departments</button>
+            <button *ngIf="currentRoleId === '4'" class="btn text-light sidebar-nav"  routerLinkActive="btn-active" routerLink="leaves">Leaves
+                (Admin)</button>
+            <button *ngIf="currentRoleId === '1'" class="btn text-light sidebar-nav"  routerLinkActive="btn-active" routerLink="employee-leaves">Leaves
+                (Employee)</button>
+
+            <button *ngIf="currentRoleId === '4'" class="btn text-light sidebar-nav"  routerLinkActive="btn-active"
+                routerLink="settings">Settings</button>
+        </div>
+    </div>
+    
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg header">
+
+            <div class="container-fluid">
+                <button class="btn btn-current" (click)="clickEvent()"><i class="fa fa-bars"></i></button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">About</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <div class="container">
+                            <div class="half">
+                                <label for="profile2" class="profile-dropdown">
+                                    <input type="checkbox" id="profile2">
+                                    <img
+                                        src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_hipster_guy-512.png">
+                                    <span>{{currentUser}}</span>
+                                    <label for="profile2"><i class="fa fa-bars"></i></label>
+                                    <ul style="border-bottom: 1px solid #ededed;box-shadow: 0 1px 1px #0003;">
+                                        <li><a><i class="mdi mdi-email-outline"></i>Messages</a></li>
+                                        <li><a><i class="mdi mdi-account"></i>Account</a></li>
+                                        <li><a><i class="mdi mdi-settings"></i>Settings</a></li>
+                                        <li routerLink="/"><a><i class="mdi mdi-logout"></i>Logout</a></li>
+                                    </ul>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
