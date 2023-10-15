@@ -20,7 +20,7 @@ export class LoginComponent {
       Email: ['', Validators.email],
       Password: ['', Validators.required]
     });
-    localStorage.removeItem("token");
+    localStorage.removeItem("token"); // When login. removes the previous token
   }
 
   login() {
@@ -29,14 +29,14 @@ export class LoginComponent {
       this.auth.loginUser(this.loginForm.value).subscribe({  
         next: (res) => {
           alert(res.Message) 
-          localStorage.setItem('token', res.Token)
+          localStorage.setItem('token', res.Token)                                              // Login Success, Store the token
           if (this.auth.getRoleId() === '1') {
-            this.router.navigate(['employee/employee-detail',Number(this.auth.getUserId())]) // getUserId is string. cahnge it to number
+            this.router.navigate(['employee/employee-detail',Number(this.auth.getUserId())])    // getUserId is string. change it to number
           }
           else {
             this.router.navigate(['employee'])
           }
-        }// If response is success, then alert Login Successful
+        }
       })
     }
     else {

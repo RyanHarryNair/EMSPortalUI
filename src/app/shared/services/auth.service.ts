@@ -27,7 +27,7 @@ export class AuthService {
   getLoggedinUser() {
     if (this.isUserLogin()) {
       let token = this.getToken();
-      let decodedJWT = JSON.parse(window.atob(token?.split('.')[1]));
+      let decodedJWT = JSON.parse(window.atob(token?.split('.')[1])); //The `token?` code snippet uses optional chaining (`?.`) to ensure that the `token` variable is not `null` or `undefined` before attempting to use it. If `token` is `null` or `undefined`, the code following `?.` will not be executed, preventing potential runtime errors.
       //console.log(decodedJWT);
       return decodedJWT.FullName ? decodedJWT.FullName : 'Null';
     }

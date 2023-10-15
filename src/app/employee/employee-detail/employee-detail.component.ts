@@ -19,14 +19,12 @@ export class EmployeeDetailComponent implements OnInit {
   // Constructor to inject dependencies
   constructor(private activatedRoute: ActivatedRoute, private empService: EmployeeService) { }
 
-  // Lifecycle hook: ngAfterViewInit
-  // This method is called after the view is initialized
+  // Lifecycle hook: ngAfterViewInit : This method is called after the view is initialized
   ngAfterViewInit(): void {
     this.getEmployee();
   }
 
-  // Lifecycle hook: ngOnInit
-  // This method is called when the component is initialized
+  // Lifecycle hook: ngOnInit : This method is called when the component is initialized
   ngOnInit(): void {
     // Subscribe to changes in route parameters
     this.activatedRoute.params.subscribe(val => {

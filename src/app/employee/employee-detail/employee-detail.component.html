@@ -23,7 +23,7 @@
                                     {{ empData.FirstName }} {{ empData.LastName }}
                                 </h3>
                                 <h6 class="text-muted">Department ID : {{ empData.DepartmentId }}</h6>
-                                <small class="text-muted">Web Designer</small>
+                                <small class="text-muted">{{empData.Designation}}</small>
                                 <div class="staff-id">Employee ID : {{ empData.Id }}</div>
                                 <div class="small doj text-muted">
                                     Date of Join : {{ empData.StartDate | date }}

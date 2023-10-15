@@ -1,1 +1,106 @@
-<p>employee-leaves works!</p>
+<div class="content container-fluid">
+    <div class="page-header d-flex justify-content-between">
+        <div class="page-title">
+            <h3>Leaves</h3>
+        </div>
+        <div class="add-employee">
+            <button (click)="onAdd()" class="btn addbtn" data-bs-toggle="modal" data-bs-target="#leaveModal"><i class="fa fa-plus"></i>
+                Add Leave</button>
+        </div>
+    </div>
+</div>
+
+<!-- Leave Table List Starts -->
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Leave Start Date</th>
+                        <th scope="col">Leave End Date</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Leave Type</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of employeeleaveList">
+                        <th scope="row">{{row.UserId}}</th>
+                        <td>{{row.UserName}}</td>
+                        <td>{{ row.LStartDate | date: 'dd/MM/yyyy h:mm a' }}</td>
+                        <td>{{ row.LEndDate | date: 'dd/MM/yyyy h:mm a' }}</td>
+                        <td>{{ row.Count}}</td>
+                        <td>{{ row.LeaveType}}</td>
+                        <td>{{ row.Status}}</td>
+                        <!-- <td>
+                            <button (click)="onEditLeave(row)" data-bs-toggle="modal"
+                                data-bs-target="#leaveModal" class="btn"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i>
+                                <span class="caret"></span></button>
+                            <button (click)="removeLeave(row.LeaveId)"  class="btn"><i class="fa fa-trash-o"
+                                    aria-hidden="true"></i>
+                                <span class="caret"></span></button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Leave Table List Ends -->
+
+<!-- Leave Modal Starts -->
+
+<div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="leaveModalLabel">Add Leave</h5>
+                <button type="button" id="close-emp" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="employeeleaveForm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Leave Start Date <span
+                                        class="text-danger">*</span></label>
+                                <input formControlName="LStartDate" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Leave End Date <span class="text-danger">*</span></label>
+                                <input formControlName="LEndDate" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">No of Days <span class="text-danger">*</span></label>
+                                <input formControlName="Count" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Leave Type <span class="text-danger">*</span></label>
+                                <input formControlName="LeaveType" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close-empleave" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="addLeave()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Leave Modal Ends -->

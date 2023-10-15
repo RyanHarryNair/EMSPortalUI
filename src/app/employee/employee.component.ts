@@ -1,14 +1,14 @@
-// Import necessary modules and components from Angular
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 
-// Define the component metadata
+
 @Component({
   selector: 'app-employee',
-  templateUrl: './employee.component.html', // HTML template file for the component
-  styleUrls: ['./employee.component.scss'] // Stylesheet for the component
+  templateUrl: './employee.component.html', 
+  styleUrls: ['./employee.component.scss'] 
 })
-export class EmployeeComponent implements OnInit { // Define the component class
+export class EmployeeComponent implements OnInit { 
 
   // Define component properties
   public LoggedInUser: string = ""; // Property to store the logged-in user's name

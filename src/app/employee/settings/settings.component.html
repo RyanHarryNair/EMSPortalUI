@@ -1,1 +1,86 @@
-<p>settings works!</p>
+<div class="content container-fluid">
+    <div class="page-header d-flex justify-content-between">
+        <div class="page-title">
+            <h3>Roles</h3>
+        </div>
+        <div class="add-employee">
+            <button (click)="onAddRole()" class="btn addbtn" data-bs-toggle="modal" data-bs-target="#roleModal"><i
+                    class="fa fa-plus"></i>
+                Add Role</button>
+        </div>
+    </div>
+</div>
+
+<!-- Role Table List Starts -->
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th scope="col">Role ID</th>
+                        <th scope="col">Role Name</th>
+                        <th scope="col">Role Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of roleList">
+                        <th scope="row">{{row.RoleId}}</th>
+                        <td>{{row.RoleName}}</td>
+                        <td>{{row.Description}}</td>
+                        <td><button (click)="onEditRole(row)" data-bs-toggle="modal"
+                                data-bs-target="#roleModal" class="btn"><i class="fa fa-pencil"
+                                    aria-hidden="true"></i>
+                                <span class="caret"></span></button>
+                            <button (click)="removeRole(row.RoleId)" class="btn"><i
+                                    class="fa fa-trash-o" aria-hidden="true"></i>
+                                <span class="caret"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Role Table List Ends -->
+
+<!-- Role Modal Starts -->
+
+<div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="roleModalLabel">Add Role</h5>
+                <button type="button" id="close-emp" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="roleForm" >
+                    <div class="row">
+                        <input style="display: none;" id="file-input" type="file" accept="image/*" />
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Role Name <span class="text-danger">*</span></label>
+                                <input formControlName="RoleName"  type="text" class="form-control">
+                                <label class="col-form-label">Role Description<span class="text-danger">*</span></label>
+                                <input formControlName="Description" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="close-role" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="!isEdit" (click)="addRole()" type="button" class="btn btn-primary">Save
+                    changes</button>
+                <button *ngIf="isEdit" (click)="updateRole()" type="button" class="btn btn-primary">Update
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Role Modal Ends -->

@@ -114,6 +114,12 @@ export class EmployeeListComponent implements OnInit {
 
   }
 
+  onAdd() {
+    this.isEdit = false;
+    this.empForm.reset();
+    this.imgUrl = '';
+  }
+
   addEmployee() {
     this.empObj.FirstName = this.empForm.value.FirstName;
     this.empObj.LastName = this.empForm.value.LastName;
@@ -144,11 +150,6 @@ export class EmployeeListComponent implements OnInit {
 
   }
 
-  onAdd() {
-    this.isEdit = false;
-    this.empForm.reset;
-  }
-
   onEditEmployee(row: any) {
     this.isEdit = true;
     console.log(row);
@@ -163,6 +164,15 @@ export class EmployeeListComponent implements OnInit {
     this.empForm.controls['Email'].setValue(row.Email);
     this.empForm.controls['Mobile'].setValue(row.Mobile);
     this.empForm.controls['Password'].setValue(row.Password);
+    
+    // Preload ProfileImageUrl
+    if (row.ProfileImageUrl) {
+      this.imgUrl = row.ProfileImageUrl;
+    } else {
+      // Set a default image or clear the current image if no ProfileImageUrl is available.
+      this.imgUrl = ''; // You can set a default image URL or an empty string here.
+    }
+
   }
 
   updateEmployee() {
@@ -193,7 +203,6 @@ export class EmployeeListComponent implements OnInit {
           console.log(err);
         }
       })
-
   }
 
   removeEmployee(id:number) {
@@ -212,5 +221,4 @@ export class EmployeeListComponent implements OnInit {
   seeDetails(id: any) {
     this.router.navigate(['employee/employee-detail/', id])
   }
-
 }
